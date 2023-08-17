@@ -25,10 +25,10 @@ router.post(
   signin
 );
 
-router.get("/:creatorId", getCreators);
+router.get("/:creatorId", verifyToken, getCreators);
 
-router.get("/creator/:creatorId", getCreator);
+router.get("/creator/:creatorId", verifyToken, getCreator);
 
-router.put("/follow/:creatorId", switchFollow);
+router.put("/follow/:creatorId", verifyToken, switchFollow);
 
 module.exports = router;
