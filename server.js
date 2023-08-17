@@ -36,16 +36,12 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error ocurred!" });
 });
 
-// createDatabase()
-//   .then(() => {
-//     app.listen(port || 5000, () => {
-//       console.log("listening");
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Hubo un error al crear la base de datos:", error);
-//   });
-
-app.listen(port || 5000, () => {
-  console.log("listening");
-});
+createDatabase()
+  .then(() => {
+    app.listen(port || 5000, () => {
+      console.log("listening");
+    });
+  })
+  .catch((error) => {
+    console.error("Hubo un error al crear la base de datos:", error);
+  });
