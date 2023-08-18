@@ -19,6 +19,12 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Cambia esto al dominio de tu frontend
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use("/api/creators", creatorsRoutes);
 app.use("/api/videos", videosRoutes);
 
