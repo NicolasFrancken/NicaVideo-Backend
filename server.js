@@ -12,7 +12,7 @@ const { createDatabase } = require("./createDatabase");
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://nicavideo-webapp.netlify.app',
     credentials: true,
   })
 );
