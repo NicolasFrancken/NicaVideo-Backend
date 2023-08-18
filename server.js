@@ -11,10 +11,8 @@ const { createDatabase } = require("./createDatabase");
 
 const app = express();
 
-app.use(
-  "*",
-  cors({
-    origin: true,
+app.use(cors({
+    origin: 'http://localhost:3000',
     credentials: true,
   })
 );
