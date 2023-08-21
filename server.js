@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://nicavideo-webapp.netlify.app",
+    origin: "https://localhost:3000",
     credentials: true,
   })
 );
@@ -42,5 +42,5 @@ createDatabase()
     });
   })
   .catch((error) => {
-    console.error("Hubo un error al crear la base de datos:", error);
+    console.error("There was an error", error);
   });
