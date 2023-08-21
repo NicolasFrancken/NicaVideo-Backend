@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/creators", creatorsRoutes);
-app.use("/api/videos", verifyToken, videosRoutes);
+app.use("/api/videos", videosRoutes);
 
 app.use((req, res, next) => {
   next(new HttpError("Could not find this route", 404));
