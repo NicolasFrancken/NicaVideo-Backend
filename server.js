@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://localhost",
+    origin: "https://nicavideo-webapp.netlify.app",
     credentials: true,
   })
 );
