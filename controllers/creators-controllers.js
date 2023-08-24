@@ -32,7 +32,6 @@ const signup = async (req, res, next) => {
 
     res.json({ result: result.rows[0], token });
   } catch (e) {
-    console.log(e);
     const error = new HttpError("There was an error", 500);
     return next(error);
   }

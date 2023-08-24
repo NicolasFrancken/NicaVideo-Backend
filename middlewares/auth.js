@@ -12,7 +12,13 @@ const generateToken = () => {
 };
 
 const verifyToken = async (req, res, next) => {
-  const token = await req.cookies._auth;
+  const authorizationHeader = req.headers.authorization;
+  console.log(authorizationHeader);
+
+  let token;
+  if (authorizationHeader) {
+    token = authorizationHeader.split(" ")[1]; // Extraer el token después de 'Bearer'
+  }
 
   if (!token) {
     return next(new HttpError("Access denied", 401));
