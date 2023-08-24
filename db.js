@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 const { renderUrl } = require("./config");
+// const { db } = require("./config");
 
 const pool = new Pool({
   // user: db.user,
@@ -7,7 +8,6 @@ const pool = new Pool({
   // host: db.host,
   // port: db.port,
   // database: db.database,
-
   connectionString: renderUrl,
 });
 

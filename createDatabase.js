@@ -2,28 +2,29 @@ const { Pool } = require("pg");
 const path = require("path");
 const fs = require("fs");
 const { renderUrl } = require("./config");
+// const { db } = require("./config");
 
 async function createDatabase() {
   try {
-    // const pool = new Pool({
-    //   user: db.user,
-    //   password: db.password,
-    //   host: db.host,
-    //   port: db.port,
-    //   database: db.postgresDatabase,
-    // });
+    //   const pool = new Pool({
+    //     user: db.user,
+    //     password: db.password,
+    //     host: db.host,
+    //     port: db.port,
+    //     database: db.postgresDatabase,
+    //   });
 
-    // const result = await pool.query(
-    //   "SELECT datname FROM pg_database WHERE datname = $1",
-    //   ["nicasourcedb"]
-    // );
+    //   const result = await pool.query(
+    //     "SELECT datname FROM pg_database WHERE datname = $1",
+    //     ["nicasourcedb"]
+    //   );
 
-    // if (result.rows.length === 0) {
-    //   await pool.query(`CREATE DATABASE nicasourcedb`);
-    // }
+    //   if (result.rows.length === 0) {
+    //     await pool.query(`CREATE DATABASE nicasourcedb`);
+    //   }
 
     const newPool = new Pool({
-      // user: db.user,
+      user: db.user,
       // password: db.password,
       // host: db.host,
       // port: db.port,
@@ -40,7 +41,7 @@ async function createDatabase() {
     );
   `);
 
-    if (result.rows.length === 0) {
+    if (result.rows[0].exists === true) {
       newPool.end();
       return;
     } else {

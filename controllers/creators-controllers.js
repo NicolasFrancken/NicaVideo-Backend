@@ -16,6 +16,7 @@ const signup = async (req, res, next) => {
   let hashedPassword;
   try {
     hashedPassword = await bcrypt.hash(password, 12);
+    console.log(hashedPassword);
   } catch (e) {
     const error = new HttpError("Could not create user, please try again", 500);
     return next(error);
@@ -31,6 +32,7 @@ const signup = async (req, res, next) => {
 
     res.json({ result: result.rows[0], token });
   } catch (e) {
+    console.log(e);
     const error = new HttpError("There was an error", 500);
     return next(error);
   }
@@ -40,10 +42,9 @@ const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const result = await pool.query(
-      "SELECT * FROM creators WHERE email = $1 AND password = $2 ",
-      [email, password]
-    );
+    const result = await pool.query("SELECT * FROM creators WHERE email = $1", [
+      email,
+    ]);
 
     if (result.rows.length === 0) {
       const error = new HttpError("Invalid credentials, please try again", 401);
