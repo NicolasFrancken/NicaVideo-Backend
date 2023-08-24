@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+import bcrypt from "bcryptjs";
 
 const HttpError = require("../models/http-error");
 const pool = require("../db");
@@ -12,10 +13,18 @@ const signup = async (req, res, next) => {
 
   const { name, email, password, image } = req.body;
 
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (e) {
+    const error = new HttpError("Could not create user, please try again", 500);
+    return next(error);
+  }
+
   try {
     const result = await pool.query(
       "INSERT INTO creators (name, email, password, image) VALUES ($1, $2, $3, $4) RETURNING *",
-      [name, email, password, image]
+      [name, email, hashedPassword, image]
     );
 
     const token = await generateToken();
@@ -37,7 +46,20 @@ const signin = async (req, res, next) => {
     );
 
     if (result.rows.length === 0) {
-      const error = new HttpError("Invalid credentials", 401);
+      const error = new HttpError("Invalid credentials, please try again", 401);
+      return next(error);
+    }
+
+    let isValidPassword = false;
+    try {
+      isValidPassword = await bcrypt.compare(password, result.rows[0].password);
+    } catch (e) {
+      const error = new HttpError("There was an error, please try again", 500);
+      return next(error);
+    }
+
+    if (!isValidPassword) {
+      const error = new HttpError("Invalid credentials, please try again", 401);
       return next(error);
     }
 
