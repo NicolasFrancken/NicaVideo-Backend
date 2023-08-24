@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-import bcrypt from "bcryptjs";
+const bcrypt = require("bcryptjs");
 
 const HttpError = require("../models/http-error");
 const pool = require("../db");
