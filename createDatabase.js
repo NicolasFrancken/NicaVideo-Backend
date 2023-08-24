@@ -24,7 +24,7 @@ async function createDatabase() {
     //   }
 
     const newPool = new Pool({
-      user: db.user,
+      // user: db.user,
       // password: db.password,
       // host: db.host,
       // port: db.port,
