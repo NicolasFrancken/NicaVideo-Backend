@@ -13,8 +13,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    // origin: "https://nicavideo-webapp.netlify.app",
+    // origin: "http://localhost:3000",
+    origin: "https://nicavideo-webapp.netlify.app",
     credentials: true,
   })
 );
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/creators", creatorsRoutes);
-app.use("/api/videos", videosRoutes);
+app.use("/api/videos", verifyToken, videosRoutes);
 
 app.use((req, res, next) => {
   next(new HttpError("Could not find this route", 404));

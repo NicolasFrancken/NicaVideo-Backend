@@ -22,7 +22,6 @@ router.post(
 router.post(
   "/signin",
   [check("email").normalizeEmail({ gmail_remove_dots: false })],
-  verifyToken,
   signin
 );
 
